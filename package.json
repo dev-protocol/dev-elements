@@ -1,0 +1,56 @@
+{
+	"name": "template-repos-ts",
+	"version": "1.0.0",
+	"description": "Template repository for using TypeScript",
+	"scripts": {
+		"test": "ava",
+		"build": "tsc",
+		"watch": "tsc -w",
+		"pretest": "yarn build",
+		"prebuild": "rimraf dist",
+		"lint": "yarn lint:eslint && yarn lint:format",
+		"lint:eslint": "eslint . --ext .ts,.js --fix",
+		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
+		"prepare": "husky install"
+	},
+	"author": "Dev Protocol",
+	"license": "MPL-2.0",
+	"dependencies": {
+		"ethereum-waffle": "3.4.0",
+		"ramda": "0.27.1"
+	},
+	"devDependencies": {
+		"@ava/typescript": "2.0.0",
+		"@types/dotenv": "8.2.0",
+		"@types/node": "16.11.17",
+		"@types/ramda": "0.27.62",
+		"@typescript-eslint/eslint-plugin": "5.8.1",
+		"@typescript-eslint/parser": "5.8.1",
+		"ava": "3.15.0",
+		"dotenv": "10.0.0",
+		"eslint": "7.32.0",
+		"eslint-config-prettier": "8.3.0",
+		"eslint-plugin-functional": "3.7.2",
+		"husky": "7.0.4",
+		"prettier": "2.5.1",
+		"rimraf": "3.0.2",
+		"typescript": "4.5.4"
+	},
+	"ava": {
+		"files": [
+			"**/*.test.ts"
+		],
+		"typescript": {
+			"rewritePaths": {
+				"/": "dist/"
+			},
+			"compile": false
+		}
+	},
+	"repository": "git+https://github.com/dev-protocol/template-repos-ts.git",
+	"bugs": {
+		"url": "https://github.com/dev-protocol/template-repos-ts/issues"
+	},
+	"homepage": "https://github.com/dev-protocol/template-repos-ts#readme",
+	"private": true
+}

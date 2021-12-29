@@ -1,0 +1,28 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": "tsconfig.json"
+	},
+	"env": {
+		"es6": true
+	},
+	"plugins": ["@typescript-eslint", "functional"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:functional/external-recommended",
+		"plugin:functional/all",
+		"prettier"
+	],
+	"overrides": [
+		{
+			"files": ["**/*.test.ts"],
+			"rules": {
+				"functional/no-expression-statement": "off",
+				"functional/functional-parameters": "off",
+				"@typescript-eslint/no-explicit-any": "off"
+			}
+		}
+	]
+}
