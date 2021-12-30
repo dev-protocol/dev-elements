@@ -1,11 +1,13 @@
 {
-	"name": "template-repos-ts",
-	"version": "1.0.0",
-	"description": "Template repository for using TypeScript",
+	"name": "@devprotocol/elements",
+	"version": "0.0.1",
+	"description": " Web Components for Dev Protocol",
 	"scripts": {
-		"test": "ava",
-		"build": "tsc",
-		"watch": "tsc -w",
+		"dev": "vite",
+		"test": "wtr dist/test.js --node-resolve --puppeteer",
+		"build": "yarn build:ts && yarn build:rollup",
+		"build:ts": "tsc",
+		"build:rollup": "rollup -c",
 		"pretest": "yarn build",
 		"prebuild": "rimraf dist",
 		"lint": "yarn lint:eslint && yarn lint:format",
@@ -16,17 +18,24 @@
 	"author": "Dev Protocol",
 	"license": "MPL-2.0",
 	"dependencies": {
+		"@aggre/ullr": "^2.0.1",
 		"ethereum-waffle": "3.4.0",
-		"ramda": "0.27.1"
+		"lit": "^2.0.2",
+		"ramda": "0.27.1",
+		"rxjs": "^7.5.1"
 	},
 	"devDependencies": {
-		"@ava/typescript": "2.0.0",
+		"@devprotocol/util-ts": "^2.2.1",
+		"@esm-bundle/chai": "^4.3.4-fix.0",
+		"@rollup/plugin-multi-entry": "^4.1.0",
+		"@rollup/plugin-node-resolve": "^13.1.1",
 		"@types/dotenv": "8.2.0",
 		"@types/node": "16.11.17",
 		"@types/ramda": "0.27.62",
 		"@typescript-eslint/eslint-plugin": "5.8.1",
 		"@typescript-eslint/parser": "5.8.1",
-		"ava": "3.15.0",
+		"@web/test-runner": "^0.13.23",
+		"@web/test-runner-puppeteer": "^0.10.4",
 		"dotenv": "10.0.0",
 		"eslint": "7.32.0",
 		"eslint-config-prettier": "8.3.0",
@@ -34,23 +43,15 @@
 		"husky": "7.0.4",
 		"prettier": "2.5.1",
 		"rimraf": "3.0.2",
-		"typescript": "4.5.4"
+		"rollup": "^2.62.0",
+		"rollup-plugin-dts": "^4.1.0",
+		"typescript": "4.5.4",
+		"typescript-lit-html-plugin": "^0.9.0",
+		"vite": "^2.7.9"
 	},
-	"ava": {
-		"files": [
-			"**/*.test.ts"
-		],
-		"typescript": {
-			"rewritePaths": {
-				"/": "dist/"
-			},
-			"compile": false
-		}
-	},
-	"repository": "git+https://github.com/dev-protocol/template-repos-ts.git",
+	"repository": "git+https://github.com/dev-protocol/dev-elements.git",
 	"bugs": {
-		"url": "https://github.com/dev-protocol/template-repos-ts/issues"
+		"url": "https://github.com/dev-protocol/dev-elements/issues"
 	},
-	"homepage": "https://github.com/dev-protocol/template-repos-ts#readme",
-	"private": true
+	"homepage": "https://github.com/dev-protocol/dev-elements#readme"
 }

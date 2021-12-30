@@ -1,12 +1,20 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "esnext",
 		"target": "es6",
+		"lib": ["esnext", "dom"],
 		"outDir": "dist",
 		"rootDir": ".",
 		"sourceMap": true,
 		"strict": true,
 		"esModuleInterop": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"declaration": true,
+		"moduleResolution": "node",
+		"plugins": [
+			{
+				"name": "typescript-lit-html-plugin"
+			}
+		]
 	}
 }

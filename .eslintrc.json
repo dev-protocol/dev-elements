@@ -21,8 +21,13 @@
 			"rules": {
 				"functional/no-expression-statement": "off",
 				"functional/functional-parameters": "off",
-				"@typescript-eslint/no-explicit-any": "off"
+				"@typescript-eslint/no-explicit-any": "off",
+				"@typescript-eslint/no-non-null-assertion": "off"
 			}
+		},
+		{
+			"files": ["**/element.ts"],
+			"rules": { "functional/no-expression-statement": "off" }
 		}
 	]
 }
