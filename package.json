@@ -22,7 +22,7 @@
 		"ethereum-waffle": "3.4.0",
 		"lit": "2.1.1",
 		"ramda": "0.27.1",
-		"rxjs": "7.5.1"
+		"rxjs": "7.5.2"
 	},
 	"devDependencies": {
 		"@devprotocol/util-ts": "2.2.1",
