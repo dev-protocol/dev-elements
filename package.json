@@ -45,7 +45,7 @@
 		"rimraf": "3.0.2",
 		"rollup": "2.64.0",
 		"rollup-plugin-dts": "4.1.0",
-		"typescript": "4.5.4",
+		"typescript": "4.5.5",
 		"typescript-lit-html-plugin": "0.9.0",
 		"vite": "2.7.13"
 	},
