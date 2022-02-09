@@ -8616,10 +8616,10 @@ rustbn.js@~0.2.0:
   resolved "https://registry.yarnpkg.com/rustbn.js/-/rustbn.js-0.2.0.tgz#8082cb886e707155fd1cb6f23bd591ab8d55d0ca"
   integrity sha512-4VlvkRUuCJvr2J6Y0ImW7NvTCriMi7ErOAqWk1y69vAdoNIzCF3yPmgeNzx+RQTLEDFq5sHfscn1MwHxP9hNfA==
 
-rxjs@7.5.3:
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.3.tgz#1359f8a4704797bee74357d65a125dbc7d8f4a91"
-  integrity sha512-6162iC/N7L7K8q3UvdOMWix1ju+esADGrDaPrTu5XJmCv69YNdYoUaop/iatN8GHK+YHOdszPP+qygA0yi04zQ==
+rxjs@7.5.4:
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.4.tgz#3d6bd407e6b7ce9a123e76b1e770dc5761aa368d"
+  integrity sha512-h5M3Hk78r6wAheJF0a5YahB1yRQKCsZ4MsGdZ5O9ETbVtjPcScGfrMmoOq7EBsCRzd4BDkvDJ7ogP8Sz5tTFiQ==
   dependencies:
     tslib "^2.1.0"
 
