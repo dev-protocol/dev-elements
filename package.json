@@ -20,7 +20,7 @@
 	"dependencies": {
 		"@aggre/ullr": "2.0.1",
 		"ethereum-waffle": "3.4.4",
-		"lit": "2.2.1",
+		"lit": "2.2.2",
 		"ramda": "0.28.0",
 		"rxjs": "7.5.5"
 	},
