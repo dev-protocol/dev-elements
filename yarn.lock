@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@aggre/ullr@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@aggre/ullr/-/ullr-2.0.1.tgz#c12fa51e5765ad7848a954d289d4d8c3cab10b17"
-  integrity sha512-8uyUWzDy7TDtyu3Bj5Z1JrdihBCXs6f8kmGtQI4ILZ/JVAWq96UUdGr/+4SDCngQL5dpB1/7RLiVZCX5OgoexQ==
+"@aggre/ullr@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@aggre/ullr/-/ullr-2.2.0.tgz#0242251130e11aee02487289fbda66ebc622d632"
+  integrity sha512-QANjcejacwR1Ik2n8By57zBkn32Fm9shaMmo8XX/3WBagdSmhOEkmNjnXrJMX354sFMzmn1WaHH4YTcjzn8jsA==
   dependencies:
-    ramda "^0.27.1"
+    ramda "^0.28.0"
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
@@ -8292,7 +8292,7 @@ querystring@0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
-ramda@0.28.0:
+ramda@0.28.0, ramda@^0.28.0:
   version "0.28.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
   integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
