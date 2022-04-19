@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@aggre/ullr@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@aggre/ullr/-/ullr-2.2.0.tgz#0242251130e11aee02487289fbda66ebc622d632"
-  integrity sha512-QANjcejacwR1Ik2n8By57zBkn32Fm9shaMmo8XX/3WBagdSmhOEkmNjnXrJMX354sFMzmn1WaHH4YTcjzn8jsA==
+"@aggre/ullr@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@aggre/ullr/-/ullr-3.0.2.tgz#4b40bf29555e84f0efb741e701b650fb91aa1dce"
+  integrity sha512-dcBbQ6IB7NVpfKq66inb+IIUjVvrGdZZAVN4q/re2KDSXuYLzns4oAwLwukXJoI+XuKlqx/E4REYBWj66H0b3g==
   dependencies:
     ramda "^0.28.0"
 
