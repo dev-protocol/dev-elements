@@ -48,3 +48,8 @@ export const slotSelector = (
 
 export const removeExtraString = (c: string): string =>
 	c.replace(/<!--((?!-->)[\w\W])*-->/g, '').trim()
+
+export const rpcEndpoints = [
+	'https://arb1.arbitrum.io/rpc',
+	'https://rinkeby.arbitrum.io/rpc',
+]

@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import multiEntry from '@rollup/plugin-multi-entry'
 import dts from 'rollup-plugin-dts'
 
@@ -9,7 +10,7 @@ export default [
 			file: 'dist/test.js',
 			format: 'umd',
 		},
-		plugins: [resolve(), multiEntry()],
+		plugins: [resolve(), commonjs(), multiEntry()],
 	},
 	{
 		input: ['dist/**/*.js', '!**/*.test.js', '!dist/src/lib/test.ts'],
