@@ -18,7 +18,7 @@
 	"author": "Dev Protocol",
 	"license": "MPL-2.0",
 	"dependencies": {
-		"@aggre/ullr": "2.0.1",
+		"@aggre/ullr": "3.0.2",
 		"ethereum-waffle": "3.4.4",
 		"lit": "2.2.2",
 		"ramda": "0.28.0",
