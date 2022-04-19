@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import { DevConnectionElement } from './index'
 import { define } from '@aggre/ullr'
 import { html, render } from 'lit'
-import { rpcEndpoints } from '../lib/test'
+import { rpcEndpoints, waitForUpdated } from '../lib/test'
 import { filter } from 'rxjs'
 
 define(DevConnectionElement)
@@ -47,9 +47,7 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await new Promise((res) =>
-				el.account.pipe(filter((x) => x !== undefined)).subscribe(res)
-			)
+			await waitForUpdated(el.account.asObservable())
 			expect(el.account.getValue()).to.be.equal(await mock.getAddress())
 		})
 		it('when signer is changed, provider will update', async () => {
@@ -61,10 +59,8 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await new Promise((res) =>
-				el.provider.pipe(filter((x) => x !== undefined)).subscribe(res)
-			)
-			expect(el.provider.getValue()).to.be.equal(await mock.provider)
+			await waitForUpdated(el.provider.asObservable())
+			expect(el.provider.getValue()).to.be.equal(mock.provider)
 		})
 	})
 	describe('Exposes provider', () => {
@@ -93,10 +89,21 @@ describe('dev-connection', () => {
 			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
 
-			await new Promise((res) =>
-				el.chain.pipe(filter((x) => x !== undefined)).subscribe(res)
-			)
+			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
 			expect(el.chain.getValue()).to.be.equal(42161)
+		})
+		it('when provider is changed to undefined, chain will update to undefined', async () => {
+			const el = connection()
+			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			el.provider.next(mock)
+
+			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
+			expect(el.chain.getValue()).to.be.equal(42161)
+
+			el.provider.next(undefined)
+			await waitForUpdated(el.chain.pipe(filter((x) => x === undefined)))
+
+			expect(el.chain.getValue()).to.be.equal(undefined)
 		})
 	})
 })

@@ -57,24 +57,24 @@ export class DevConnectionElement extends UllrElement {
 		this._account = newAccount()
 		this._chain = newChain()
 
-		this._signerSubscription = this.signer.subscribe(async (x) => {
-			if (x === undefined) {
-				this.chain.next(undefined)
-				return
-			}
-			const address = await x.getAddress()
-			this.account.next(address)
-			this.provider.next(x.provider)
-		})
+		this._signerSubscription = this.signer
+			.asObservable()
+			.subscribe(async (x) => {
+				this.provider.next(x?.provider)
+				const address = await x?.getAddress()
+				this.account.next(address)
+			})
 
-		this._providerSubscription = this.provider.subscribe(async (x) => {
-			if (x === undefined) {
-				this.chain.next(undefined)
-				return
-			}
-			const net = await x.getNetwork()
-			this.chain.next(net.chainId)
-		})
+		this._providerSubscription = this.provider
+			.asObservable()
+			.subscribe(async (x) => {
+				if (x === undefined) {
+					this.chain.next(undefined)
+					return
+				}
+				const net = await x.getNetwork()
+				this.chain.next(net.chainId)
+			})
 	}
 
 	disconnectedCallback(): void {
