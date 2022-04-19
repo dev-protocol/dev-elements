@@ -1,6 +1,6 @@
 import { expect } from '@esm-bundle/chai'
 import { html, render } from 'lit'
-import { stakeOnMeButton } from '.'
+import { stakeOnButton } from '.'
 import { shadowSelector } from '../lib/test'
 
 describe('Stake On Me Button', () => {
@@ -10,7 +10,7 @@ describe('Stake On Me Button', () => {
 
 	it('This is an example test', () => {
 		render(
-			stakeOnMeButton({ address: 'address', network: 'network' }),
+			stakeOnButton({ address: 'address', network: 'network' }),
 			document.body
 		)
 		const button = document.body.querySelector('button')

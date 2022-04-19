@@ -1,10 +1,10 @@
 import { createCustomElements } from '@aggre/ullr'
-import { stakeOnMeButton } from './index'
+import { stakeOnButton } from './index'
 
 window.customElements.define(
-	'stake-on-me',
+	'dev-stake-on',
 	createCustomElements(
-		([address, network]) => stakeOnMeButton({ address, network }),
+		([address, network]) => stakeOnButton({ address, network }),
 		['address', 'network']
 	)
 )

@@ -17,7 +17,7 @@ const showNetwork = (net: string | null): DirectiveResult =>
 			}</style
 		><span>${net}</span>`)
 
-export const stakeOnMeButton = ({
+export const stakeOnButton = ({
 	address,
 	network,
 }: {
