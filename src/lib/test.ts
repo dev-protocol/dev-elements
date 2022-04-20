@@ -3,6 +3,7 @@
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/no-expression-statement */
 import type { UndefinedOr } from '@devprotocol/util-ts'
+import { Observable, take } from 'rxjs'
 
 export const sleep = async (time: number): Promise<void> =>
 	new Promise(
@@ -48,3 +49,11 @@ export const slotSelector = (
 
 export const removeExtraString = (c: string): string =>
 	c.replace(/<!--((?!-->)[\w\W])*-->/g, '').trim()
+
+export const rpcEndpoints = [
+	'https://arb1.arbitrum.io/rpc',
+	'https://rinkeby.arbitrum.io/rpc',
+]
+
+export const waitForUpdated = (obs: Observable<any>) =>
+	new Promise((res) => obs.pipe(take(1)).subscribe(res))

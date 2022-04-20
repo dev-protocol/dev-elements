@@ -23,7 +23,8 @@
 				"functional/functional-parameters": "off",
 				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/no-non-null-assertion": "off",
-				"functional/no-return-void": "off"
+				"functional/no-return-void": "off",
+				"functional/no-let": "off"
 			}
 		},
 		{
