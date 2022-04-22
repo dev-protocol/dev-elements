@@ -19,7 +19,6 @@ export const createOptions = (file) => ({
 		multiEntry(),
 		tailwind({
 			include: 'src/**/*',
-			placeholder: '@tailwind;',
 		}),
 	],
 })
