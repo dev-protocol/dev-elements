@@ -3,8 +3,9 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import multiEntry from '@rollup/plugin-multi-entry'
 import tailwind from './rollup.plugin.tw'
+import glob from 'glob'
 
-const files = ['src/dev-stake-on/element.ts', 'src/dev-connection/element.ts']
+const files = glob.sync('src/**/element.ts')
 
 export const createOptions = (file) => ({
 	input: file,
