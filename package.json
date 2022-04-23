@@ -44,7 +44,7 @@
 		"@typescript-eslint/parser": "5.20.0",
 		"@web/test-runner": "0.13.27",
 		"@web/test-runner-puppeteer": "0.10.5",
-		"autoprefixer": "^10.4.4",
+		"autoprefixer": "10.4.5",
 		"dotenv": "16.0.0",
 		"eslint": "8.14.0",
 		"eslint-config-prettier": "8.5.0",
