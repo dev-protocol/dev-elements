@@ -31,7 +31,7 @@
 	"devDependencies": {
 		"@devprotocol/util-ts": "2.2.1",
 		"@esm-bundle/chai": "4.3.4-fix.0",
-		"@rollup/plugin-commonjs": "^21.1.0",
+		"@rollup/plugin-commonjs": "22.0.0",
 		"@rollup/plugin-multi-entry": "4.1.0",
 		"@rollup/plugin-node-resolve": "13.2.1",
 		"@rollup/plugin-typescript": "^8.3.2",
