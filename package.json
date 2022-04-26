@@ -62,7 +62,7 @@
 		"type-fest": "^2.12.2",
 		"typescript": "4.6.3",
 		"typescript-lit-html-plugin": "0.9.0",
-		"vite": "2.9.5"
+		"vite": "2.9.6"
 	},
 	"repository": "git+https://github.com/dev-protocol/dev-elements.git",
 	"bugs": {
