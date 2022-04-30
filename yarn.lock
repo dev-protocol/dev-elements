@@ -9441,10 +9441,10 @@ rollup-plugin-lit-tailwindcss@^2.1.0:
   resolved "https://registry.yarnpkg.com/rollup-plugin-lit-tailwindcss/-/rollup-plugin-lit-tailwindcss-2.1.0.tgz#12bfe8e20d977ecd9ff0f32c45df4effed33f6f5"
   integrity sha512-rN5sTBcDyiBABgRCRYgmYn+ajEwHQ4eKvtRGRUa7fxlZt8YfT+1pWy9NhGfpKJFYBL08TTQ8n94atu5L67Y28A==
 
-rollup@2.71.0:
-  version "2.71.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.71.0.tgz#d61e26b95481867d796da255a43fffeadb754cfd"
-  integrity sha512-kZWB4FA9N/iZU/O9tVp08pPdxLM0i2iUDvcS77XT92DI81s3wYQcU/cA2FCXWj+HgJj8RUC2M0dXECwoOfDBYA==
+rollup@2.71.1:
+  version "2.71.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.71.1.tgz#82b259af7733dfd1224a8171013aaaad02971a22"
+  integrity sha512-lMZk3XfUBGjrrZQpvPSoXcZSfKcJ2Bgn+Z0L1MoW2V8Wh7BVM+LOBJTPo16yul2MwL59cXedzW1ruq3rCjSRgw==
   optionalDependencies:
     fsevents "~2.3.2"
 
