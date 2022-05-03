@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@aggre/ullr": "3.0.2",
 		"ethereum-waffle": "3.4.4",
-		"ethers": "^5.6.4",
+		"ethers": "5.6.5",
 		"lit": "2.2.3",
 		"ramda": "0.28.0",
 		"rxjs": "7.5.5"
