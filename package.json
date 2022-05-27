@@ -21,7 +21,7 @@
 	"author": "Dev Protocol",
 	"license": "MPL-2.0",
 	"dependencies": {
-		"@aggre/ullr": "3.0.2",
+		"@aggre/ullr": "3.1.0",
 		"ethereum-waffle": "3.4.4",
 		"ethers": "5.6.8",
 		"lit": "2.2.5",
