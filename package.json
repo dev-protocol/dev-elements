@@ -55,7 +55,7 @@
 		"postcss": "8.4.14",
 		"prettier": "2.6.2",
 		"rimraf": "3.0.2",
-		"rollup": "2.74.1",
+		"rollup": "2.75.0",
 		"rollup-plugin-dts": "4.2.2",
 		"rollup-plugin-lit-tailwindcss": "^2.1.0",
 		"tailwindcss": "^3.0.24",
