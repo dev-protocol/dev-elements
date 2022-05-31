@@ -9,6 +9,14 @@
 			"require": "./dist/index.js"
 		}
 	},
+	"files": [
+		"dist/*.mjs",
+		"dist/*.js",
+		"dist/*.ts",
+		"bundled",
+		"!**/*.test.*",
+		"!**/test.*"
+	],
 	"scripts": {
 		"dev": "run-p vite watch",
 		"vite": "vite",
@@ -19,11 +27,11 @@
 		"build:rollup:elements": "rollup -c rollup.config.elements.js",
 		"watch": "yarn build:rollup:elements -w",
 		"pretest": "yarn build",
-		"prebuild": "rimraf dist",
+		"prebuild": "rimraf dist bundled",
 		"lint": "yarn lint:eslint && yarn lint:format",
 		"lint:eslint": "eslint . --ext .ts,.js --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
-		"prepack": "yarn test && yarn build",
+		"prepack": "yarn test",
 		"prepare": "husky install"
 	},
 	"author": "Dev Protocol",

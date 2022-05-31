@@ -10,7 +10,7 @@ const files = glob.sync('src/**/element.ts')
 export const createOptions = (file) => ({
 	input: file,
 	output: {
-		file: `dist/${file}.js`,
+		file: `bundled/${file.replace(/.*(dev-(\w|-)*).*/, '$1')}.mjs`,
 		format: 'es',
 	},
 	plugins: [
