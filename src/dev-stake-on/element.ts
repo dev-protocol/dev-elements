@@ -1,7 +1,6 @@
 import { createCustomElements } from '@aggre/ullr'
 import { stakeOnButton } from './index'
-
-export const defineStakeOnButton = (): void => {
+;((): void => {
 	window.customElements.define(
 		'dev-stake-on',
 		createCustomElements(
@@ -9,4 +8,4 @@ export const defineStakeOnButton = (): void => {
 			['address', 'network']
 		)
 	)
-}
+})()

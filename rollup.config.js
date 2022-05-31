@@ -13,7 +13,7 @@ export default [
 		plugins: [resolve(), commonjs(), multiEntry()],
 	},
 	{
-		input: ['dist/**/*.js', '!**/*.test.js', '!**/test.js'],
+		input: ['dist/**/*.js', '!**/element.*', '!**/*.test.js', '!**/test.js'],
 		output: [
 			{
 				file: 'dist/index.mjs',
@@ -27,7 +27,12 @@ export default [
 		plugins: [resolve(), commonjs(), multiEntry()],
 	},
 	{
-		input: ['dist/**/*.d.ts', '!**/*.test.d.ts', '!dist/src/lib/test.d.ts'],
+		input: [
+			'dist/**/*.d.ts',
+			'!**/element.*',
+			'!**/*.test.d.ts',
+			'!dist/src/lib/test.d.ts',
+		],
 		output: [{ file: 'dist/index.d.ts', format: 'es' }],
 		plugins: [multiEntry(), dts()],
 	},
