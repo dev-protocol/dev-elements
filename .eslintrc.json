@@ -29,7 +29,11 @@
 		},
 		{
 			"files": ["**/element.ts"],
-			"rules": { "functional/no-expression-statement": "off" }
+			"rules": {
+				"functional/no-expression-statement": "off",
+				"functional/no-return-void": "off",
+				"functional/functional-parameters": "off"
+			}
 		}
 	]
 }

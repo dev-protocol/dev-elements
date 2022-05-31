@@ -1,16 +1,15 @@
 import { expect } from '@esm-bundle/chai'
 import { ethers } from 'ethers'
-import { DevConnectionElement } from './index'
+import { Connection } from './index'
 import { define } from '@aggre/ullr'
 import { html, render } from 'lit'
 import { rpcEndpoints, waitForUpdated } from '../lib/test'
 import { filter } from 'rxjs'
 
-define(DevConnectionElement)
+define(Connection)
 
 const ID = 'connection'
-const connection = (): DevConnectionElement =>
-	document.getElementById(ID) as DevConnectionElement
+const connection = (): Connection => document.getElementById(ID) as Connection
 
 describe('dev-connection', () => {
 	beforeEach(() => {

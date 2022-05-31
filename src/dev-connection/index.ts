@@ -23,7 +23,7 @@ const newProvider = () =>
 const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
 
-export class DevConnectionElement extends UllrElement {
+export class Connection extends UllrElement {
 	static get is(): string {
 		return 'dev-connection'
 	}

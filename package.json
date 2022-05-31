@@ -2,6 +2,13 @@
 	"name": "@devprotocol/elements",
 	"version": "0.0.1",
 	"description": " Web Components for Dev Protocol",
+	"main": "dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		}
+	},
 	"scripts": {
 		"dev": "run-p vite watch",
 		"vite": "vite",
@@ -16,13 +23,13 @@
 		"lint": "yarn lint:eslint && yarn lint:format",
 		"lint:eslint": "eslint . --ext .ts,.js --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
+		"prepack": "yarn test && yarn build",
 		"prepare": "husky install"
 	},
 	"author": "Dev Protocol",
 	"license": "MPL-2.0",
 	"dependencies": {
 		"@aggre/ullr": "3.1.0",
-		"ethereum-waffle": "3.4.4",
 		"ethers": "5.6.8",
 		"lit": "2.2.5",
 		"ramda": "0.28.0",

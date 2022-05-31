@@ -1,6 +1,6 @@
-import { DevConnectionElement } from '.'
+import { Connection } from '.'
 
-export const getConnection = (id: string): DevConnectionElement | undefined => {
+export const getConnection = (id: string): Connection | undefined => {
 	const el = document.getElementById(id)
-	return el ? (el as DevConnectionElement) : undefined
+	return el ? (el as Connection) : undefined
 }

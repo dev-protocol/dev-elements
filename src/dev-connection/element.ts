@@ -1,4 +1,6 @@
 import { define } from '@aggre/ullr'
-import { DevConnectionElement } from './index'
+import { Connection } from './index'
 
-define(DevConnectionElement)
+export const defineConnection = (): void => {
+	define(Connection)
+}
