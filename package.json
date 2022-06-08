@@ -20,7 +20,7 @@
 	"scripts": {
 		"dev": "run-p vite watch",
 		"vite": "vite",
-		"test": "wtr",
+		"test": "wtr --puppeteer",
 		"build": "npm run build:ts && npm run build:rollup && npm run build:rollup:elements",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
@@ -30,7 +30,7 @@
 		"lint": "npm run lint:eslint && npm run lint:format",
 		"lint:eslint": "eslint . --ext .ts,.js --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
-		"prepack": "npm run test",
+		"prepack": "npm run test && npm run build",
 		"prepare": "husky install"
 	},
 	"author": "Dev Protocol",
