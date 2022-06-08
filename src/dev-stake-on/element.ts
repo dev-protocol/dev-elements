@@ -5,10 +5,11 @@ import { stakeOnButton } from './index'
 	window.customElements.define(
 		'dev-stake-on',
 		createCustomElements(
-			([address, network]) => html`<style tailwind></style>${stakeOnButton({
-					address,
-					network,
-				})}`,
+			([address, network]) =>
+				html`<style tailwind></style>${stakeOnButton({
+						address,
+						network,
+					})}`,
 			['address', 'network']
 		)
 	)
