@@ -55,5 +55,5 @@ export const rpcEndpoints = [
 	'https://rinkeby.arbitrum.io/rpc',
 ]
 
-export const waitForUpdated = (obs: Observable<any>) =>
-	new Promise((res) => obs.pipe(take(1)).subscribe(res))
+export const waitForUpdated = <T>(obs: Observable<T>) =>
+	new Promise<T>((res) => obs.pipe(take(1)).subscribe(res))

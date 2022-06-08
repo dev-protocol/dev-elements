@@ -49,7 +49,34 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.account.asObservable())
 			expect(el.account.getValue()).to.be.equal(await mock.getAddress())
 		})
-		it('when signer is changed, provider will update', async () => {
+		it('when signer is changed to undefined, account will update to undefined', async () => {
+			const el = connection()
+
+			const mock = ethers.Wallet.createRandom().connect(
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			)
+			el.signer.next(mock)
+			await waitForUpdated(el.account.asObservable())
+
+			el.signer.next(undefined)
+
+			await waitForUpdated(el.account.asObservable())
+			expect(el.account.getValue()).to.be.equal(undefined)
+		})
+		it('when signer is changed to undefined, provider will update to undefined', async () => {
+			const el = connection()
+
+			const mock = ethers.Wallet.createRandom().connect(
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			)
+			el.signer.next(mock)
+			expect(el.provider.getValue()).to.be.equal(mock.provider)
+
+			el.signer.next(undefined)
+
+			expect(el.provider.getValue()).to.be.equal(undefined)
+		})
+		it('when signer is changed and the provider meets BaseProvider, provider will update', async () => {
 			const el = connection()
 			expect(el.provider.getValue()).to.be.equal(undefined)
 
@@ -58,8 +85,18 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await waitForUpdated(el.provider.asObservable())
 			expect(el.provider.getValue()).to.be.equal(mock.provider)
+		})
+		it('when signer is changed and the provider is not meets BaseProvider, provider will update to undefined', async () => {
+			const el = connection()
+			expect(el.provider.getValue()).to.be.equal(undefined)
+
+			const mock = ethers.Wallet.createRandom().connect(
+				ethers.getDefaultProvider()
+			)
+			el.signer.next(mock)
+
+			expect(el.provider.getValue()).to.be.equal(undefined)
 		})
 	})
 	describe('Exposes provider', () => {
@@ -91,7 +128,7 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
 			expect(el.chain.getValue()).to.be.equal(42161)
 		})
-		it('when provider is changed to undefined, chain will update to undefined', async () => {
+		it('when provider is changed to undefined, chain and signer will update to undefined', async () => {
 			const el = connection()
 			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
@@ -103,6 +140,7 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.chain.pipe(filter((x) => x === undefined)))
 
 			expect(el.chain.getValue()).to.be.equal(undefined)
+			expect(el.signer.getValue()).to.be.equal(undefined)
 		})
 	})
 })

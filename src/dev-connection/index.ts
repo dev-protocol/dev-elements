@@ -12,16 +12,22 @@
  * This Custom Element does not have a UI, so it's specifically excluded from the linting rules and declared a class.
  */
 import { UndefinedOr } from '@devprotocol/util-ts'
-import { ethers } from 'ethers'
+import { ethers, providers } from 'ethers'
+import { BaseProvider } from '@ethersproject/providers'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
 
 const newSigner = () =>
 	new BehaviorSubject<UndefinedOr<ethers.Signer>>(undefined)
 const newProvider = () =>
-	new BehaviorSubject<UndefinedOr<ethers.providers.Provider>>(undefined)
+	new BehaviorSubject<UndefinedOr<BaseProvider>>(undefined)
 const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
+
+const providerTest = (
+	x: ethers.providers.Provider
+): x is providers.Web3Provider =>
+	Object.prototype.hasOwnProperty.call(x, 'polling')
 
 export class Connection extends UllrElement {
 	static get is(): string {
@@ -29,7 +35,7 @@ export class Connection extends UllrElement {
 	}
 
 	private _signer!: BehaviorSubject<UndefinedOr<ethers.Signer>>
-	private _provider!: BehaviorSubject<UndefinedOr<ethers.providers.Provider>>
+	private _provider!: BehaviorSubject<UndefinedOr<BaseProvider>>
 	private _account!: BehaviorSubject<UndefinedOr<string>>
 	private _chain!: BehaviorSubject<UndefinedOr<number>>
 	private _signerSubscription!: Subscription
@@ -57,24 +63,30 @@ export class Connection extends UllrElement {
 		this._account = newAccount()
 		this._chain = newChain()
 
-		this._signerSubscription = this.signer
-			.asObservable()
-			.subscribe(async (x) => {
-				this.provider.next(x?.provider)
-				const address = await x?.getAddress()
-				this.account.next(address)
-			})
+		this._signerSubscription = this.signer.asObservable().subscribe((x) => {
+			if (x === undefined) {
+				this.account.next(undefined)
+				this.provider.next(undefined)
+				return
+			}
+			const { provider } = x
+			if (provider && providerTest(provider)) {
+				this.provider.next(provider)
+			} else {
+				this.provider.next(undefined)
+			}
+			x.getAddress().then(this.account.next)
+		})
 
-		this._providerSubscription = this.provider
-			.asObservable()
-			.subscribe(async (x) => {
-				if (x === undefined) {
-					this.chain.next(undefined)
-					return
-				}
-				const net = await x.getNetwork()
+		this._providerSubscription = this.provider.asObservable().subscribe((x) => {
+			if (x === undefined) {
+				this.chain.next(undefined)
+				return
+			}
+			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
 				this.chain.next(net.chainId)
-			})
+			)
+		})
 	}
 
 	disconnectedCallback(): void {
