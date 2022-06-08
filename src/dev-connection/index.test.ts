@@ -1,5 +1,5 @@
 import { expect } from '@esm-bundle/chai'
-import { ethers } from 'ethers'
+import { ethers } from 'bundled-ethers'
 import { Connection } from './index'
 import { define } from '@aggre/ullr'
 import { html, render } from 'lit'
@@ -46,7 +46,7 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await waitForUpdated(el.account.asObservable())
+			await waitForUpdated(el.account)
 			expect(el.account.getValue()).to.be.equal(await mock.getAddress())
 		})
 		it('when signer is changed to undefined, account will update to undefined', async () => {
@@ -56,11 +56,11 @@ describe('dev-connection', () => {
 				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
-			await waitForUpdated(el.account.asObservable())
+			await waitForUpdated(el.account)
 
 			el.signer.next(undefined)
 
-			await waitForUpdated(el.account.asObservable())
+			await waitForUpdated(el.account)
 			expect(el.account.getValue()).to.be.equal(undefined)
 		})
 		it('when signer is changed to undefined, provider will update to undefined', async () => {
@@ -128,7 +128,7 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
 			expect(el.chain.getValue()).to.be.equal(42161)
 		})
-		it('when provider is changed to undefined, chain and signer will update to undefined', async () => {
+		it('when provider is changed to undefined, chain will update to undefined', async () => {
 			const el = connection()
 			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
@@ -140,7 +140,6 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.chain.pipe(filter((x) => x === undefined)))
 
 			expect(el.chain.getValue()).to.be.equal(undefined)
-			expect(el.signer.getValue()).to.be.equal(undefined)
 		})
 	})
 })

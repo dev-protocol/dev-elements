@@ -75,7 +75,7 @@ export class Connection extends UllrElement {
 			} else {
 				this.provider.next(undefined)
 			}
-			x.getAddress().then(this.account.next)
+			x.getAddress().then((addr) => this.account.next(addr))
 		})
 
 		this._providerSubscription = this.provider.asObservable().subscribe((x) => {
