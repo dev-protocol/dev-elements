@@ -1,5 +1,5 @@
 import { expect } from '@esm-bundle/chai'
-import { ethers } from 'ethers'
+import { ethers } from 'bundled-ethers'
 import { Connection } from './index'
 import { define } from '@aggre/ullr'
 import { html, render } from 'lit'
@@ -46,10 +46,37 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await waitForUpdated(el.account.asObservable())
+			await waitForUpdated(el.account)
 			expect(el.account.getValue()).to.be.equal(await mock.getAddress())
 		})
-		it('when signer is changed, provider will update', async () => {
+		it('when signer is changed to undefined, account will update to undefined', async () => {
+			const el = connection()
+
+			const mock = ethers.Wallet.createRandom().connect(
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			)
+			el.signer.next(mock)
+			await waitForUpdated(el.account)
+
+			el.signer.next(undefined)
+
+			await waitForUpdated(el.account)
+			expect(el.account.getValue()).to.be.equal(undefined)
+		})
+		it('when signer is changed to undefined, provider will update to undefined', async () => {
+			const el = connection()
+
+			const mock = ethers.Wallet.createRandom().connect(
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			)
+			el.signer.next(mock)
+			expect(el.provider.getValue()).to.be.equal(mock.provider)
+
+			el.signer.next(undefined)
+
+			expect(el.provider.getValue()).to.be.equal(undefined)
+		})
+		it('when signer is changed and the provider meets BaseProvider, provider will update', async () => {
 			const el = connection()
 			expect(el.provider.getValue()).to.be.equal(undefined)
 
@@ -58,8 +85,20 @@ describe('dev-connection', () => {
 			)
 			el.signer.next(mock)
 
-			await waitForUpdated(el.provider.asObservable())
 			expect(el.provider.getValue()).to.be.equal(mock.provider)
+		})
+		it('when signer is changed and the provider is not meets BaseProvider, provider will update to undefined', async () => {
+			const el = connection()
+			const d = new ethers.providers.JsonRpcProvider(rpcEndpoints[1])
+			el.provider.next(d)
+			expect(el.provider.getValue()).to.be.equal(d)
+
+			const mock = ethers.Wallet.createRandom().connect(
+				ethers.getDefaultProvider()
+			)
+			el.signer.next(mock)
+
+			expect(el.provider.getValue()).to.be.equal(undefined)
 		})
 	})
 	describe('Exposes provider', () => {

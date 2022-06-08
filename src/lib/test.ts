@@ -3,7 +3,7 @@
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/no-expression-statement */
 import type { UndefinedOr } from '@devprotocol/util-ts'
-import { Observable, take } from 'rxjs'
+import { distinctUntilChanged, Observable, take } from 'rxjs'
 
 export const sleep = async (time: number): Promise<void> =>
 	new Promise(
@@ -55,5 +55,7 @@ export const rpcEndpoints = [
 	'https://rinkeby.arbitrum.io/rpc',
 ]
 
-export const waitForUpdated = (obs: Observable<any>) =>
-	new Promise((res) => obs.pipe(take(1)).subscribe(res))
+export const waitForUpdated = <T>(obs: Observable<T>) =>
+	new Promise<T>((res) =>
+		obs.pipe(distinctUntilChanged(), take(1)).subscribe(res)
+	)
