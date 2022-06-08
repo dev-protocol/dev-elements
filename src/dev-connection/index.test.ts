@@ -89,7 +89,9 @@ describe('dev-connection', () => {
 		})
 		it('when signer is changed and the provider is not meets BaseProvider, provider will update to undefined', async () => {
 			const el = connection()
-			expect(el.provider.getValue()).to.be.equal(undefined)
+			const d = new ethers.providers.JsonRpcProvider(rpcEndpoints[1])
+			el.provider.next(d)
+			expect(el.provider.getValue()).to.be.equal(d)
 
 			const mock = ethers.Wallet.createRandom().connect(
 				ethers.getDefaultProvider()
