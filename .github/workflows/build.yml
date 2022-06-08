@@ -19,7 +19,7 @@ jobs:
           cache: 'npm'
 
       - name: install deps
-        run: yarn
+        run: npm ci
 
       - name: lint
         run: yarn lint
