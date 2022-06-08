@@ -11,9 +11,9 @@
 /**
  * This Custom Element does not have a UI, so it's specifically excluded from the linting rules and declared a class.
  */
-import { UndefinedOr } from '@devprotocol/util-ts'
-import { ethers, providers } from 'ethers'
-import { BaseProvider } from '@ethersproject/providers'
+import type { UndefinedOr } from '@devprotocol/util-ts'
+import type { ethers, providers } from 'ethers'
+import type { BaseProvider } from '@ethersproject/providers'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
 
