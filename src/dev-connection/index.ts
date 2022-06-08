@@ -26,8 +26,10 @@ const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
 
 const providerTest = (
 	x: ethers.providers.Provider
-): x is providers.Web3Provider =>
-	Object.prototype.hasOwnProperty.call(x, 'polling')
+): x is providers.Web3Provider => {
+	const test = Object.prototype.hasOwnProperty.call(x, '_networkPromise')
+	return test
+}
 
 export class Connection extends UllrElement {
 	static get is(): string {
