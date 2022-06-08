@@ -6,10 +6,9 @@ export const stakeOnButton = ({
 	address,
 	network,
 }: {
-	readonly address: string | null
-	readonly network: string | null
+	readonly address?: string
+	readonly network?: string
 }): TemplateResult =>
-	html`<style tailwind></style
-		><button class="shadow">
-			${showAddress(address)}${showNetwork(network)}
-		</button>`
+	html`<button class="shadow">
+		${showAddress(address)}${showNetwork(network)}
+	</button>`
