@@ -5,7 +5,7 @@ import { Connection } from '.'
 export const getConnection = (id: string): Connection => {
 	define(Connection)
 	const el =
-		getConnection(id) ??
+		document.getElementById(id) ??
 		((e) => {
 			e.setAttribute('id', id)
 			document.body.appendChild(e)
