@@ -14,7 +14,7 @@
 import type { UndefinedOr } from '@devprotocol/util-ts'
 import type { ethers, providers } from 'ethers'
 import type { BaseProvider } from '@ethersproject/providers'
-import { BehaviorSubject, Subscription } from 'rxjs'
+import { BehaviorSubject, pairwise, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
 
 const newSigner = () =>
@@ -42,6 +42,22 @@ export class Connection extends UllrElement {
 	private _chain!: BehaviorSubject<UndefinedOr<number>>
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
+	private _previousProviderSubscription!: Subscription
+	private _chainChangedListener = (chainId: number) => {
+		if (this._chain) {
+			this._chain.next(chainId)
+		}
+	}
+	private _accountsChangedListener = (accounts: string[]) => {
+		if (this._account) {
+			this._account.next(accounts[0])
+		}
+	}
+	private _disconnectListener = () => {
+		if (this._signer) {
+			this._signer.next(undefined)
+		}
+	}
 
 	get signer() {
 		return this._signer
@@ -85,15 +101,31 @@ export class Connection extends UllrElement {
 				this.chain.next(undefined)
 				return
 			}
+			if (providerTest(x)) {
+				x.on('chainChanged', this._chainChangedListener)
+				x.on('accountsChanged', this._accountsChangedListener)
+				x.on('disconnect', this._disconnectListener)
+			}
 			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
 				this.chain.next(net.chainId)
 			)
 		})
+
+		this._previousProviderSubscription = this.provider
+			.pipe(pairwise())
+			.subscribe(([old]) => {
+				if (old && providerTest(old)) {
+					old.off('chainChanged', this._chainChangedListener)
+					old.off('accountsChanged', this._accountsChangedListener)
+					old.off('disconnect', this._disconnectListener)
+				}
+			})
 	}
 
 	disconnectedCallback(): void {
 		this._signerSubscription.unsubscribe()
 		this._providerSubscription.unsubscribe()
+		this._previousProviderSubscription.unsubscribe()
 		this.signer.complete()
 		this.provider.complete()
 		this.account.complete()
