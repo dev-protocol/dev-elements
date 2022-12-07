@@ -143,18 +143,18 @@ describe('dev-connection', () => {
 
 			expect(el.chain.getValue()).to.be.equal(undefined)
 		})
-		describe('provider events listener', () => {
-			it('when provider is changed, listen chainChanged event and update chain stream', () => {
+		describe('EIP-1193 events listener', () => {
+			it('when provider is changed, listen chainChanged event and update chain stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				el.provider.next(mock)
 
 				mock.emit('chainChanged', 123)
 
-				// await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
+				await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
 				expect(el.chain.getValue()).to.be.equal(123)
 			})
-			it('when provider is changed, remove chainChanged listener for previous provider', () => {
+			it('when provider is changed, remove chainChanged listener for previous provider', async () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
@@ -163,20 +163,20 @@ describe('dev-connection', () => {
 				mock2.emit('chainChanged', 456)
 				mock1.emit('chainChanged', 123)
 
-				// await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
+				await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
 				expect(el.chain.getValue()).to.be.equal(456)
 			})
-			it('when provider is changed, listen accountsChanged event and update account stream', () => {
+			it('when provider is changed, listen accountsChanged event and update account stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				el.provider.next(mock)
 
 				mock.emit('accountsChanged', ['1', '2', '3'])
 
-				// await waitForUpdated(el.account.pipe(filter((x) => x !== undefined)))
+				await waitForUpdated(el.account.pipe(filter((x) => x !== undefined)))
 				expect(el.account.getValue()).to.be.equal('1')
 			})
-			it('when provider is changed, remove accountsChanged listener for previous provider', () => {
+			it('when provider is changed, remove accountsChanged listener for previous provider', async () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
@@ -185,24 +185,24 @@ describe('dev-connection', () => {
 				mock2.emit('accountsChanged', ['4', '5', '6'])
 				mock1.emit('accountsChanged', ['1', '2', '3'])
 
-				// await waitForUpdated(el.account.pipe(filter((x) => x !== undefined)))
+				await waitForUpdated(el.account.pipe(filter((x) => x !== undefined)))
 				expect(el.account.getValue()).to.be.equal('4')
 			})
-			it('when provider is changed, listen disconnect event and update signer stream', () => {
+			it('when provider is changed, listen disconnect event and update signer stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mockSigner = ethers.Wallet.createRandom().connect(mock)
 				el.signer.next(mockSigner)
 
-				// await waitForUpdated(el.signer.pipe(filter((x) => x !== undefined)))
+				await waitForUpdated(el.signer.pipe(filter((x) => x !== undefined)))
 				expect(el.signer.getValue()).to.be.equal(mockSigner)
 
 				mock.emit('disconnect', [1, 'some reason'])
 
-				// await waitForUpdated(el.signer.pipe(filter((x) => x === undefined)))
+				await waitForUpdated(el.signer.pipe(filter((x) => x === undefined)))
 				expect(el.signer.getValue()).to.be.equal(undefined)
 			})
-			it('when provider is changed, remove disconnect listener for previous provider', () => {
+			it('when provider is changed, remove disconnect listener for previous provider', async () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
@@ -215,7 +215,7 @@ describe('dev-connection', () => {
 
 				mock2.emit('disconnect', [1, 'some reason'])
 
-				// await waitForUpdated(el.signer.pipe(filter((x) => x === undefined)))
+				await waitForUpdated(el.signer.pipe(filter((x) => x === undefined)))
 				expect(el.signer.getValue()).to.be.equal(undefined)
 			})
 		})
