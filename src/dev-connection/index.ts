@@ -31,6 +31,15 @@ const providerTest = (
 	return test
 }
 
+const onBrowserProviderTest = (
+	x: ethers.providers.Provider
+): x is providers.Web3Provider & { provider: providers.JsonRpcProvider } => {
+	const test1 = Object.prototype.hasOwnProperty.call(x, 'provider')
+	const test2 = test1 && 'on' in (x as any).provider
+	const test3 = test1 && 'removeListener' in (x as any).provider
+	return test1 && test2 && test3
+}
+
 export class Connection extends UllrElement {
 	static get is(): string {
 		return 'dev-connection'
@@ -101,10 +110,10 @@ export class Connection extends UllrElement {
 				this.chain.next(undefined)
 				return
 			}
-			if (providerTest(x)) {
-				x.on('chainChanged', this._chainChangedListener)
-				x.on('accountsChanged', this._accountsChangedListener)
-				x.on('disconnect', this._disconnectListener)
+			if (onBrowserProviderTest(x)) {
+				x.provider.on('chainChanged', this._chainChangedListener)
+				x.provider.on('accountsChanged', this._accountsChangedListener)
+				x.provider.on('disconnect', this._disconnectListener)
 			}
 			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
 				this.chain.next(net.chainId)
@@ -114,10 +123,16 @@ export class Connection extends UllrElement {
 		this._previousProviderSubscription = this.provider
 			.pipe(pairwise())
 			.subscribe(([old]) => {
-				if (old && providerTest(old)) {
-					old.off('chainChanged', this._chainChangedListener)
-					old.off('accountsChanged', this._accountsChangedListener)
-					old.off('disconnect', this._disconnectListener)
+				if (old && onBrowserProviderTest(old)) {
+					old.provider.removeListener(
+						'chainChanged',
+						this._chainChangedListener
+					)
+					old.provider.removeListener(
+						'accountsChanged',
+						this._accountsChangedListener
+					)
+					old.provider.removeListener('disconnect', this._disconnectListener)
 				}
 			})
 	}

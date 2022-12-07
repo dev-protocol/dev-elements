@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable functional/immutable-data */
 import { expect } from '@esm-bundle/chai'
 import { ethers } from 'bundled-ethers'
 import { Connection } from './index'
@@ -147,6 +149,8 @@ describe('dev-connection', () => {
 			it('when provider is changed, listen chainChanged event and update chain stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock.provider = mock
 				el.provider.next(mock)
 
 				mock.emit('chainChanged', 123)
@@ -158,6 +162,11 @@ describe('dev-connection', () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock1.provider = mock1
+				// @ts-ignore
+				mock2.provider = mock2
+
 				el.provider.next(mock1)
 				el.provider.next(mock2)
 				mock2.emit('chainChanged', 456)
@@ -169,6 +178,8 @@ describe('dev-connection', () => {
 			it('when provider is changed, listen accountsChanged event and update account stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock.provider = mock
 				el.provider.next(mock)
 
 				mock.emit('accountsChanged', ['1', '2', '3'])
@@ -180,6 +191,11 @@ describe('dev-connection', () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock1.provider = mock1
+				// @ts-ignore
+				mock2.provider = mock2
+
 				el.provider.next(mock1)
 				el.provider.next(mock2)
 				mock2.emit('accountsChanged', ['4', '5', '6'])
@@ -191,7 +207,10 @@ describe('dev-connection', () => {
 			it('when provider is changed, listen disconnect event and update signer stream', async () => {
 				const el = connection()
 				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock.provider = mock
 				const mockSigner = ethers.Wallet.createRandom().connect(mock)
+
 				el.signer.next(mockSigner)
 
 				await waitForUpdated(el.signer.pipe(filter((x) => x !== undefined)))
@@ -206,6 +225,10 @@ describe('dev-connection', () => {
 				const el = connection()
 				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
 				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				// @ts-ignore
+				mock1.provider = mock1
+				// @ts-ignore
+				mock2.provider = mock2
 				const mockSigner = ethers.Wallet.createRandom().connect(mock2)
 				el.signer.next(mockSigner)
 				el.provider.next(mock2)
