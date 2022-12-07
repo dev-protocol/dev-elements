@@ -52,9 +52,9 @@ export class Connection extends UllrElement {
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
 	private _previousProviderSubscription!: Subscription
-	private _chainChangedListener = (chainId: number) => {
+	private _chainChangedListener = (chainId: number | string) => {
 		if (this._chain) {
-			this._chain.next(chainId)
+			this._chain.next(Number(chainId))
 		}
 	}
 	private _accountsChangedListener = (accounts: string[]) => {
