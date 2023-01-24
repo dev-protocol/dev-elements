@@ -68,7 +68,7 @@
 		"postcss": "8.4.21",
 		"prettier": "2.8.3",
 		"ramda": "0.28.0",
-		"rimraf": "4.1.1",
+		"rimraf": "4.1.2",
 		"rollup": "2.79.1",
 		"rollup-plugin-dts": "4.2.3",
 		"rxjs": "7.8.0",
