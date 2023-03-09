@@ -54,7 +54,7 @@
 		"@web/dev-server-esbuild": "0.3.3",
 		"@web/test-runner": "0.15.1",
 		"@web/test-runner-puppeteer": "0.11.0",
-		"autoprefixer": "10.4.13",
+		"autoprefixer": "10.4.14",
 		"bundled-ethers": "https://github.com/dev-protocol/bundled-ethers.git",
 		"dotenv": "16.0.3",
 		"eslint": "8.35.0",
