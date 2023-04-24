@@ -12,28 +12,22 @@
  * This Custom Element does not have a UI, so it's specifically excluded from the linting rules and declared a class.
  */
 import type { UndefinedOr } from '@devprotocol/util-ts'
-import type { ethers, providers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import type { BrowserProvider, ethers, Provider } from 'ethers'
 import { BehaviorSubject, pairwise, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
 
 const newSigner = () =>
 	new BehaviorSubject<UndefinedOr<ethers.Signer>>(undefined)
-const newProvider = () =>
-	new BehaviorSubject<UndefinedOr<BaseProvider>>(undefined)
+const newProvider = () => new BehaviorSubject<UndefinedOr<Provider>>(undefined)
 const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
 
-const providerTest = (
-	x: ethers.providers.Provider
-): x is providers.Web3Provider => {
+const providerTest = (x: Provider): x is BrowserProvider => {
 	const test = Object.prototype.hasOwnProperty.call(x, '_networkPromise')
 	return test
 }
 
-const onBrowserProviderTest = (
-	x: ethers.providers.Provider
-): x is providers.Web3Provider & { provider: providers.JsonRpcProvider } => {
+const onBrowserProviderTest = (x: Provider): x is BrowserProvider => {
 	const test1 = Object.prototype.hasOwnProperty.call(x, 'provider')
 	const test2 = test1 && 'on' in (x as any).provider
 	const test3 = test1 && 'removeListener' in (x as any).provider
@@ -46,7 +40,7 @@ export class Connection extends UllrElement {
 	}
 
 	private _signer!: BehaviorSubject<UndefinedOr<ethers.Signer>>
-	private _provider!: BehaviorSubject<UndefinedOr<BaseProvider>>
+	private _provider!: BehaviorSubject<UndefinedOr<Provider>>
 	private _account!: BehaviorSubject<UndefinedOr<string>>
 	private _chain!: BehaviorSubject<UndefinedOr<number>>
 	private _signerSubscription!: Subscription
@@ -115,9 +109,7 @@ export class Connection extends UllrElement {
 				x.provider.on('accountsChanged', this._accountsChangedListener)
 				x.provider.on('disconnect', this._disconnectListener)
 			}
-			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
-				this.chain.next(net.chainId)
-			)
+			x.getNetwork().then((net) => this.chain.next(Number(net.chainId)))
 		})
 
 		this._previousProviderSubscription = this.provider
