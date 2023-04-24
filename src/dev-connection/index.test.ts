@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable functional/immutable-data */
 import { expect } from '@esm-bundle/chai'
-import { ethers } from 'bundled-ethers'
 import { Connection } from './index'
 import { define } from '@aggre/ullr'
 import { html, render } from 'lit'
 import { rpcEndpoints, waitForUpdated } from '../lib/test'
 import { filter } from 'rxjs'
+import { JsonRpcProvider, Wallet, getDefaultProvider } from 'ethers'
 
 define(Connection)
 
@@ -31,8 +31,8 @@ describe('dev-connection', () => {
 			})
 			expect(el.signer.getValue()).to.be.equal(undefined)
 
-			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = Wallet.createRandom().connect(
+				new JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
 
@@ -43,8 +43,8 @@ describe('dev-connection', () => {
 			const el = connection()
 			expect(el.account.getValue()).to.be.equal(undefined)
 
-			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = Wallet.createRandom().connect(
+				new JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
 
@@ -54,8 +54,8 @@ describe('dev-connection', () => {
 		it('when signer is changed to undefined, account will update to undefined', async () => {
 			const el = connection()
 
-			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = Wallet.createRandom().connect(
+				new JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
 			await waitForUpdated(el.account)
@@ -68,8 +68,8 @@ describe('dev-connection', () => {
 		it('when signer is changed to undefined, provider will update to undefined', async () => {
 			const el = connection()
 
-			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = Wallet.createRandom().connect(
+				new JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
 			expect(el.provider.getValue()).to.be.equal(mock.provider)
@@ -82,8 +82,8 @@ describe('dev-connection', () => {
 			const el = connection()
 			expect(el.provider.getValue()).to.be.equal(undefined)
 
-			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = Wallet.createRandom().connect(
+				new JsonRpcProvider(rpcEndpoints[0])
 			)
 			el.signer.next(mock)
 
@@ -91,12 +91,12 @@ describe('dev-connection', () => {
 		})
 		it('when signer is changed and the provider is not meets BaseProvider, provider will update to undefined', async () => {
 			const el = connection()
-			const d = new ethers.providers.JsonRpcProvider(rpcEndpoints[1])
+			const d = new JsonRpcProvider(rpcEndpoints[1])
 			el.provider.next(d)
 			expect(el.provider.getValue()).to.be.equal(d)
 
-			const mock = ethers.Wallet.createRandom().connect(
-				ethers.getDefaultProvider()
+			const mock = Wallet.createRandom().connect(
+				getDefaultProvider({ chainId: 1 })
 			)
 			el.signer.next(mock)
 
@@ -116,7 +116,7 @@ describe('dev-connection', () => {
 			})
 			expect(el.provider.getValue()).to.be.equal(undefined)
 
-			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = new JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
 
 			expect(el.provider.getValue()).to.be.equal(mock)
@@ -126,7 +126,7 @@ describe('dev-connection', () => {
 			const el = connection()
 			expect(el.chain.getValue()).to.be.equal(undefined)
 
-			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = new JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
 
 			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
@@ -134,7 +134,7 @@ describe('dev-connection', () => {
 		})
 		it('when provider is changed to undefined, chain will update to undefined', async () => {
 			const el = connection()
-			const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+			const mock = new JsonRpcProvider(rpcEndpoints[0])
 			el.provider.next(mock)
 
 			await waitForUpdated(el.chain.pipe(filter((x) => x !== undefined)))
@@ -148,7 +148,7 @@ describe('dev-connection', () => {
 		describe('EIP-1193 events listener', () => {
 			it('when provider is changed, listen chainChanged event and update chain stream', async () => {
 				const el = connection()
-				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock.provider = mock
 				el.provider.next(mock)
@@ -160,8 +160,8 @@ describe('dev-connection', () => {
 			})
 			it('when provider is changed, remove chainChanged listener for previous provider', async () => {
 				const el = connection()
-				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
-				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock1 = new JsonRpcProvider(rpcEndpoints[0])
+				const mock2 = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock1.provider = mock1
 				// @ts-ignore
@@ -177,7 +177,7 @@ describe('dev-connection', () => {
 			})
 			it('when provider is changed, listen accountsChanged event and update account stream', async () => {
 				const el = connection()
-				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock.provider = mock
 				el.provider.next(mock)
@@ -189,8 +189,8 @@ describe('dev-connection', () => {
 			})
 			it('when provider is changed, remove accountsChanged listener for previous provider', async () => {
 				const el = connection()
-				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
-				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock1 = new JsonRpcProvider(rpcEndpoints[0])
+				const mock2 = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock1.provider = mock1
 				// @ts-ignore
@@ -206,10 +206,10 @@ describe('dev-connection', () => {
 			})
 			it('when provider is changed, listen disconnect event and update signer stream', async () => {
 				const el = connection()
-				const mock = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock.provider = mock
-				const mockSigner = ethers.Wallet.createRandom().connect(mock)
+				const mockSigner = Wallet.createRandom().connect(mock)
 
 				el.signer.next(mockSigner)
 
@@ -223,13 +223,13 @@ describe('dev-connection', () => {
 			})
 			it('when provider is changed, remove disconnect listener for previous provider', async () => {
 				const el = connection()
-				const mock1 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
-				const mock2 = new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				const mock1 = new JsonRpcProvider(rpcEndpoints[0])
+				const mock2 = new JsonRpcProvider(rpcEndpoints[0])
 				// @ts-ignore
 				mock1.provider = mock1
 				// @ts-ignore
 				mock2.provider = mock2
-				const mockSigner = ethers.Wallet.createRandom().connect(mock2)
+				const mockSigner = Wallet.createRandom().connect(mock2)
 				el.signer.next(mockSigner)
 				el.provider.next(mock2)
 				mock1.emit('disconnect', [1, 'some reason'])
