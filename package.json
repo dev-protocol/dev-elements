@@ -46,7 +46,7 @@
 		"@rollup/pluginutils": "5.0.2",
 		"@types/dotenv": "8.2.0",
 		"@types/glob": "8.1.0",
-		"@types/node": "18.16.13",
+		"@types/node": "18.16.14",
 		"@types/ramda": "0.29.1",
 		"@typescript-eslint/eslint-plugin": "5.59.6",
 		"@typescript-eslint/parser": "5.59.6",
