@@ -12,32 +12,30 @@
  * This Custom Element does not have a UI, so it's specifically excluded from the linting rules and declared a class.
  */
 import type { UndefinedOr } from '@devprotocol/util-ts'
-import type { ethers, providers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
-import { BehaviorSubject, pairwise, Subscription } from 'rxjs'
+import {
+	type Signer,
+	type ContractRunner,
+	type Eip1193Provider,
+	type BrowserProvider,
+	type EventEmitterable,
+} from 'ethers'
+import { BehaviorSubject, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
 
-const newSigner = () =>
-	new BehaviorSubject<UndefinedOr<ethers.Signer>>(undefined)
+const newSigner = () => new BehaviorSubject<UndefinedOr<Signer>>(undefined)
 const newProvider = () =>
-	new BehaviorSubject<UndefinedOr<BaseProvider>>(undefined)
+	new BehaviorSubject<UndefinedOr<ContractRunner>>(undefined)
 const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
+const newEip1193Provider = () =>
+	new BehaviorSubject<UndefinedOr<Eip1193Provider>>(undefined)
 
-const providerTest = (
-	x: ethers.providers.Provider,
-): x is providers.Web3Provider => {
-	const test = Object.prototype.hasOwnProperty.call(x, '_networkPromise')
-	return test
-}
-
-const onBrowserProviderTest = (
-	x: ethers.providers.Provider,
-): x is providers.Web3Provider & { provider: providers.JsonRpcProvider } => {
-	const test1 = Object.prototype.hasOwnProperty.call(x, 'provider')
-	const test2 = test1 && 'on' in (x as any).provider
-	const test3 = test1 && 'removeListener' in (x as any).provider
-	return test1 && test2 && test3
+const testEventEmitterable = (
+	x: any,
+): x is EventEmitterable<'chainChanged' | 'accountsChanged' | 'disconnect'> => {
+	const test = 'on' in x
+	const test2 = 'removeListener' in x
+	return test && test2
 }
 
 export class Connection extends UllrElement {
@@ -45,13 +43,13 @@ export class Connection extends UllrElement {
 		return 'dev-connection'
 	}
 
-	private _signer!: BehaviorSubject<UndefinedOr<ethers.Signer>>
-	private _provider!: BehaviorSubject<UndefinedOr<BaseProvider>>
+	private _signer!: BehaviorSubject<UndefinedOr<Signer>>
+	private _provider!: BehaviorSubject<UndefinedOr<ContractRunner>>
 	private _account!: BehaviorSubject<UndefinedOr<string>>
 	private _chain!: BehaviorSubject<UndefinedOr<number>>
+	private _eip1193Provider!: BehaviorSubject<UndefinedOr<Eip1193Provider>>
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
-	private _previousProviderSubscription!: Subscription
 	private _chainChangedListener = (chainId: number | string) => {
 		if (this._chain) {
 			this._chain.next(Number(chainId))
@@ -84,11 +82,38 @@ export class Connection extends UllrElement {
 		return this._chain
 	}
 
+	get eip1193Provider() {
+		return this._eip1193Provider
+	}
+
+	async setEip1193Provider(
+		prov: Eip1193Provider,
+		providerFactory?: typeof BrowserProvider,
+	) {
+		const old = this.eip1193Provider.value
+		this.eip1193Provider.next(prov)
+		if (prov && testEventEmitterable(prov)) {
+			prov.on('chainChanged', this._chainChangedListener)
+			prov.on('accountsChanged', this._accountsChangedListener)
+			prov.on('disconnect', this._disconnectListener)
+		}
+		if (old && testEventEmitterable(old)) {
+			old.removeListener('chainChanged', this._chainChangedListener)
+			old.removeListener('accountsChanged', this._accountsChangedListener)
+			old.removeListener('disconnect', this._disconnectListener)
+		}
+		if (providerFactory) {
+			const browserProvider = new providerFactory(prov)
+			this.signer.next(await browserProvider.getSigner())
+		}
+	}
+
 	connectedCallback() {
 		this._signer = newSigner()
 		this._provider = newProvider()
 		this._account = newAccount()
 		this._chain = newChain()
+		this._eip1193Provider = newEip1193Provider()
 
 		this._signerSubscription = this.signer.asObservable().subscribe((x) => {
 			if (x === undefined) {
@@ -97,7 +122,7 @@ export class Connection extends UllrElement {
 				return
 			}
 			const { provider } = x
-			if (provider && providerTest(provider)) {
+			if (provider) {
 				this.provider.next(provider)
 			} else {
 				this.provider.next(undefined)
@@ -110,37 +135,15 @@ export class Connection extends UllrElement {
 				this.chain.next(undefined)
 				return
 			}
-			if (onBrowserProviderTest(x)) {
-				x.provider.on('chainChanged', this._chainChangedListener)
-				x.provider.on('accountsChanged', this._accountsChangedListener)
-				x.provider.on('disconnect', this._disconnectListener)
-			}
-			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
-				this.chain.next(net.chainId),
-			)
+			x.provider
+				?.getNetwork()
+				.then((net) => this.chain.next(Number(net.chainId)))
 		})
-
-		this._previousProviderSubscription = this.provider
-			.pipe(pairwise())
-			.subscribe(([old]) => {
-				if (old && onBrowserProviderTest(old)) {
-					old.provider.removeListener(
-						'chainChanged',
-						this._chainChangedListener,
-					)
-					old.provider.removeListener(
-						'accountsChanged',
-						this._accountsChangedListener,
-					)
-					old.provider.removeListener('disconnect', this._disconnectListener)
-				}
-			})
 	}
 
 	disconnectedCallback(): void {
 		this._signerSubscription.unsubscribe()
 		this._providerSubscription.unsubscribe()
-		this._previousProviderSubscription.unsubscribe()
 		this.signer.complete()
 		this.provider.complete()
 		this.account.complete()
