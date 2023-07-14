@@ -1,6 +1,6 @@
 {
 	"name": "@devprotocol/elements",
-	"version": "0.2.2",
+	"version": "1.0.0",
 	"description": " Web Components for Dev Protocol",
 	"main": "dist/index.js",
 	"exports": {
