@@ -10,7 +10,7 @@ import { stakeOnButton } from './index'
 						address,
 						network,
 					})}`,
-			['address', 'network']
-		)
+			['address', 'network'],
+		),
 	)
 })()

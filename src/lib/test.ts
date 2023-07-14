@@ -9,18 +9,18 @@ export const sleep = async (time: number): Promise<void> =>
 	new Promise(
 		(resolve: (value?: void | PromiseLike<void> | undefined) => void): void => {
 			setTimeout(resolve, time)
-		}
+		},
 	)
 
 export const shadowSelector = (
 	selector: string,
-	element: UndefinedOr<Element | null>
+	element: UndefinedOr<Element | null>,
 ): UndefinedOr<Element | null> => element!.shadowRoot!.querySelector(selector)
 
 export const slotSelector = (
 	slot: string,
 	selector: string,
-	element: Element | null
+	element: Element | null,
 ): Element | null | undefined => {
 	if (element === null) {
 		return
@@ -57,5 +57,5 @@ export const rpcEndpoints = [
 
 export const waitForUpdated = <T>(obs: Observable<T>) =>
 	new Promise<T>((res) =>
-		obs.pipe(distinctUntilChanged(), take(1)).subscribe(res)
+		obs.pipe(distinctUntilChanged(), take(1)).subscribe(res),
 	)

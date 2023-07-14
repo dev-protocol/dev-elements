@@ -11,7 +11,7 @@ describe('Stake On Me Button', () => {
 	it('This is an example test', () => {
 		render(
 			stakeOnButton({ address: 'address', network: 'network' }),
-			document.body
+			document.body,
 		)
 		const button = document.body.querySelector('button')
 		expect(button).to.not.equal(null)

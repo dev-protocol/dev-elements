@@ -38,7 +38,7 @@ export default function litTailwindcss(options = defaultOptions) {
 				if (result.css) {
 					return code.replace(
 						placeholder,
-						`<style>${result.css.replace(/:/g, '\\:')}`
+						`<style>${result.css.replace(/:/g, '\\:')}`,
 					)
 				}
 				return null

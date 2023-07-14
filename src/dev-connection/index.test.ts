@@ -32,7 +32,7 @@ describe('dev-connection', () => {
 			expect(el.signer.getValue()).to.be.equal(undefined)
 
 			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0]),
 			)
 			el.signer.next(mock)
 
@@ -44,7 +44,7 @@ describe('dev-connection', () => {
 			expect(el.account.getValue()).to.be.equal(undefined)
 
 			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0]),
 			)
 			el.signer.next(mock)
 
@@ -55,7 +55,7 @@ describe('dev-connection', () => {
 			const el = connection()
 
 			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0]),
 			)
 			el.signer.next(mock)
 			await waitForUpdated(el.account)
@@ -69,7 +69,7 @@ describe('dev-connection', () => {
 			const el = connection()
 
 			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0]),
 			)
 			el.signer.next(mock)
 			expect(el.provider.getValue()).to.be.equal(mock.provider)
@@ -83,7 +83,7 @@ describe('dev-connection', () => {
 			expect(el.provider.getValue()).to.be.equal(undefined)
 
 			const mock = ethers.Wallet.createRandom().connect(
-				new ethers.providers.JsonRpcProvider(rpcEndpoints[0])
+				new ethers.providers.JsonRpcProvider(rpcEndpoints[0]),
 			)
 			el.signer.next(mock)
 
@@ -96,7 +96,7 @@ describe('dev-connection', () => {
 			expect(el.provider.getValue()).to.be.equal(d)
 
 			const mock = ethers.Wallet.createRandom().connect(
-				ethers.getDefaultProvider()
+				ethers.getDefaultProvider(),
 			)
 			el.signer.next(mock)
 

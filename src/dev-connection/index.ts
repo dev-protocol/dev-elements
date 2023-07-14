@@ -25,14 +25,14 @@ const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
 
 const providerTest = (
-	x: ethers.providers.Provider
+	x: ethers.providers.Provider,
 ): x is providers.Web3Provider => {
 	const test = Object.prototype.hasOwnProperty.call(x, '_networkPromise')
 	return test
 }
 
 const onBrowserProviderTest = (
-	x: ethers.providers.Provider
+	x: ethers.providers.Provider,
 ): x is providers.Web3Provider & { provider: providers.JsonRpcProvider } => {
 	const test1 = Object.prototype.hasOwnProperty.call(x, 'provider')
 	const test2 = test1 && 'on' in (x as any).provider
@@ -116,7 +116,7 @@ export class Connection extends UllrElement {
 				x.provider.on('disconnect', this._disconnectListener)
 			}
 			x.getNetwork().then((net: Readonly<{ chainId: number }>) =>
-				this.chain.next(net.chainId)
+				this.chain.next(net.chainId),
 			)
 		})
 
@@ -126,11 +126,11 @@ export class Connection extends UllrElement {
 				if (old && onBrowserProviderTest(old)) {
 					old.provider.removeListener(
 						'chainChanged',
-						this._chainChangedListener
+						this._chainChangedListener,
 					)
 					old.provider.removeListener(
 						'accountsChanged',
-						this._accountsChangedListener
+						this._accountsChangedListener,
 					)
 					old.provider.removeListener('disconnect', this._disconnectListener)
 				}
