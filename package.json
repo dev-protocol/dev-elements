@@ -41,7 +41,7 @@
 		"@esm-bundle/chai": "4.3.4-fix.0",
 		"@rollup/plugin-commonjs": "25.0.4",
 		"@rollup/plugin-multi-entry": "6.0.0",
-		"@rollup/plugin-node-resolve": "15.2.0",
+		"@rollup/plugin-node-resolve": "15.2.1",
 		"@rollup/plugin-typescript": "11.1.2",
 		"@rollup/pluginutils": "5.0.3",
 		"@types/dotenv": "8.2.0",
