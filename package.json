@@ -42,7 +42,7 @@
 		"@rollup/plugin-commonjs": "25.0.5",
 		"@rollup/plugin-multi-entry": "6.0.1",
 		"@rollup/plugin-node-resolve": "15.2.2",
-		"@rollup/plugin-typescript": "11.1.4",
+		"@rollup/plugin-typescript": "11.1.5",
 		"@rollup/pluginutils": "5.0.4",
 		"@types/dotenv": "8.2.0",
 		"@types/glob": "8.1.0",
