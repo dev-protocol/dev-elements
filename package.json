@@ -40,7 +40,7 @@
 		"@devprotocol/util-ts": "4.0.0",
 		"@esm-bundle/chai": "4.3.4-fix.0",
 		"@rollup/plugin-commonjs": "25.0.5",
-		"@rollup/plugin-multi-entry": "6.0.0",
+		"@rollup/plugin-multi-entry": "6.0.1",
 		"@rollup/plugin-node-resolve": "15.2.1",
 		"@rollup/plugin-typescript": "11.1.4",
 		"@rollup/pluginutils": "5.0.4",
