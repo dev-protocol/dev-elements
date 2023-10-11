@@ -73,6 +73,31 @@ describe('dev-connection', () => {
 			await waitForUpdated(el.signer)
 			expect(el.signer.getValue()).to.be.equal(signer)
 		})
+		it('when setEip1193Provider is called with BrowserProvider constructor and network options, called BrowserProvider with network options and signer will update', async () => {
+			const el = connection()
+			let network: undefined
+			expect(el.signer.getValue()).to.be.equal(undefined)
+			expect(network).to.be.equal(undefined)
+
+			const mock = {
+				request: () => Promise.resolve(),
+			}
+			const networkOptions = { chainId: 1, name: 'Ethereum' }
+			const signer = new ethers.VoidSigner(ethers.ZeroAddress)
+
+			el.setEip1193Provider(
+				mock,
+				function (_transport: any, _network: any) {
+					network = _network
+					return { getSigner: async () => signer }
+				} as any,
+				networkOptions,
+			)
+
+			await waitForUpdated(el.signer)
+			expect(el.signer.getValue()).to.be.equal(signer)
+			expect(network).to.be.equal(networkOptions)
+		})
 		describe('EIP-1193 events listener', () => {
 			const mockFc = (_e: string) => {
 				let fn: any

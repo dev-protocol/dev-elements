@@ -18,6 +18,7 @@ import {
 	type Eip1193Provider,
 	type BrowserProvider,
 	type EventEmitterable,
+	type Networkish,
 } from 'ethers'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
@@ -89,6 +90,7 @@ export class Connection extends UllrElement {
 	async setEip1193Provider(
 		prov: Eip1193Provider,
 		providerFactory?: typeof BrowserProvider,
+		network?: Networkish,
 	) {
 		const old = this.eip1193Provider.value
 		this.eip1193Provider.next(prov)
@@ -103,7 +105,7 @@ export class Connection extends UllrElement {
 			old.removeListener('disconnect', this._disconnectListener)
 		}
 		if (providerFactory) {
-			const browserProvider = new providerFactory(prov)
+			const browserProvider = new providerFactory(prov, network)
 			this.signer.next(await browserProvider.getSigner())
 		}
 	}
