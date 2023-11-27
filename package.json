@@ -59,7 +59,7 @@
 		"eslint": "8.54.0",
 		"eslint-config-prettier": "9.0.0",
 		"eslint-plugin-functional": "4.4.1",
-		"ethers": "6.8.1",
+		"ethers": "6.9.0",
 		"glob": "10.3.10",
 		"husky": "8.0.3",
 		"lit": "2.8.0",
