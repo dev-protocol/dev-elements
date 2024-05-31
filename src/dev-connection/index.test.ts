@@ -351,4 +351,24 @@ describe('dev-connection', () => {
 			expect(el.chain.getValue()).to.be.equal(undefined)
 		})
 	})
+	describe('Exposes identifiers', () => {
+		it('identifiers is undefined by default', () => {
+			const el = connection()
+			expect(el.identifiers.getValue()).to.be.equal(undefined)
+		})
+		it('identifiers is BehaviorSubject', () => {
+			const el = connection()
+			let _count = 0
+			el.identifiers.subscribe(() => {
+				_count = _count + 1
+			})
+			expect(el.identifiers.getValue()).to.be.equal(undefined)
+
+			const ids = { email: 'my@mail.com' }
+			el.identifiers.next(ids)
+
+			expect(el.identifiers.getValue()).to.be.equal(ids)
+			expect(_count).to.be.equal(2)
+		})
+	})
 })
