@@ -6,7 +6,8 @@
 	"exports": {
 		".": {
 			"import": "./dist/index.mjs",
-			"require": "./dist/index.js"
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.ts"
 		}
 	},
 	"types": "dist/index.d.ts",
@@ -83,7 +84,7 @@
 	},
 	"homepage": "https://github.com/dev-protocol/dev-elements#readme",
 	"dependencies": {
-		"@aggre/ullr": "^3.1.4",
+		"@aggre/ullr": "^3.1.5",
 		"lit": "^2.8.0"
 	}
 }
