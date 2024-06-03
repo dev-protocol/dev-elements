@@ -351,23 +351,23 @@ describe('dev-connection', () => {
 			expect(el.chain.getValue()).to.be.equal(undefined)
 		})
 	})
-	describe('Exposes identifier', () => {
-		it('identifier is undefined by default', () => {
+	describe('Exposes identifiers', () => {
+		it('identifiers is undefined by default', () => {
 			const el = connection()
-			expect(el.identifier.getValue()).to.be.equal(undefined)
+			expect(el.identifiers.getValue()).to.be.equal(undefined)
 		})
-		it('identifier is BehaviorSubject', () => {
+		it('identifiers is BehaviorSubject', () => {
 			const el = connection()
 			let _count = 0
-			el.identifier.subscribe(() => {
+			el.identifiers.subscribe(() => {
 				_count = _count + 1
 			})
-			expect(el.identifier.getValue()).to.be.equal(undefined)
+			expect(el.identifiers.getValue()).to.be.equal(undefined)
 
-			const id = { email: 'my@mail.com' }
-			el.identifier.next(id)
+			const ids = { email: 'my@mail.com' }
+			el.identifiers.next(ids)
 
-			expect(el.identifier.getValue()).to.be.equal(id)
+			expect(el.identifiers.getValue()).to.be.equal(ids)
 			expect(_count).to.be.equal(2)
 		})
 	})

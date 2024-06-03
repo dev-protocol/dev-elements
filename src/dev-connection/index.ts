@@ -30,7 +30,7 @@ const newAccount = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 const newChain = () => new BehaviorSubject<UndefinedOr<number>>(undefined)
 const newEip1193Provider = () =>
 	new BehaviorSubject<UndefinedOr<Eip1193Provider>>(undefined)
-const newIdentifier = () =>
+const newIdentifiers = () =>
 	new BehaviorSubject<UndefinedOr<{ email?: string }>>(undefined)
 
 const testEventEmitterable = (
@@ -51,7 +51,7 @@ export class Connection extends UllrElement {
 	private _account!: BehaviorSubject<UndefinedOr<string>>
 	private _chain!: BehaviorSubject<UndefinedOr<number>>
 	private _eip1193Provider!: BehaviorSubject<UndefinedOr<Eip1193Provider>>
-	private _identifier!: BehaviorSubject<UndefinedOr<{ email?: string }>>
+	private _identifiers!: BehaviorSubject<UndefinedOr<{ email?: string }>>
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
 	private _chainChangedListener = (chainId: number | string) => {
@@ -90,8 +90,8 @@ export class Connection extends UllrElement {
 		return this._eip1193Provider
 	}
 
-	get identifier() {
-		return this._identifier
+	get identifiers() {
+		return this._identifiers
 	}
 
 	async setEip1193Provider(
@@ -123,7 +123,7 @@ export class Connection extends UllrElement {
 		this._account = newAccount()
 		this._chain = newChain()
 		this._eip1193Provider = newEip1193Provider()
-		this._identifier = newIdentifier()
+		this._identifiers = newIdentifiers()
 
 		this._signerSubscription = this.signer.asObservable().subscribe((x) => {
 			if (x === undefined) {
@@ -158,6 +158,6 @@ export class Connection extends UllrElement {
 		this.provider.complete()
 		this.account.complete()
 		this.chain.complete()
-		this.identifier.complete()
+		this.identifiers.complete()
 	}
 }
