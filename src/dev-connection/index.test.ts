@@ -371,4 +371,19 @@ describe('dev-connection', () => {
 			expect(_count).to.be.equal(2)
 		})
 	})
+	describe('Exposes signal', () => {
+		it('signal is undefined by default', () => {
+			const el = connection()
+			expect(el.signal.getValue()).to.be.equal(undefined)
+		})
+		it('signal is BehaviorSubject', () => {
+			const el = connection()
+			expect(el.signal.getValue()).to.be.equal(undefined)
+
+			const signal = 'clubs sign in'
+			el.signal.next(signal)
+
+			expect(el.signal.getValue()).to.be.equal(signal)
+		})
+	})
 })

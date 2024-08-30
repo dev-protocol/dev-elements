@@ -32,6 +32,7 @@ const newEip1193Provider = () =>
 	new BehaviorSubject<UndefinedOr<Eip1193Provider>>(undefined)
 const newIdentifiers = () =>
 	new BehaviorSubject<UndefinedOr<{ email?: string }>>(undefined)
+const newSignal = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
 
 const testEventEmitterable = (
 	x: any,
@@ -54,6 +55,7 @@ export class Connection extends UllrElement {
 	private _identifiers!: BehaviorSubject<UndefinedOr<{ email?: string }>>
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
+	private _signal!: BehaviorSubject<UndefinedOr<string>>
 	private _chainChangedListener = (chainId: number | string) => {
 		if (this._chain) {
 			this._chain.next(Number(chainId))
@@ -94,6 +96,10 @@ export class Connection extends UllrElement {
 		return this._identifiers
 	}
 
+	get signal() {
+		return this._signal
+	}
+
 	async setEip1193Provider(
 		prov: Eip1193Provider,
 		providerFactory?: typeof BrowserProvider,
@@ -124,6 +130,7 @@ export class Connection extends UllrElement {
 		this._chain = newChain()
 		this._eip1193Provider = newEip1193Provider()
 		this._identifiers = newIdentifiers()
+		this._signal = newSignal()
 
 		this._signerSubscription = this.signer.asObservable().subscribe((x) => {
 			if (x === undefined) {
@@ -159,5 +166,6 @@ export class Connection extends UllrElement {
 		this.account.complete()
 		this.chain.complete()
 		this.identifiers.complete()
+		this.signal.complete()
 	}
 }
