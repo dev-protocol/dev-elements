@@ -32,7 +32,8 @@ const newEip1193Provider = () =>
 	new BehaviorSubject<UndefinedOr<Eip1193Provider>>(undefined)
 const newIdentifiers = () =>
 	new BehaviorSubject<UndefinedOr<{ email?: string }>>(undefined)
-const newSignal = () => new BehaviorSubject<UndefinedOr<string>>(undefined)
+const newSignal = () =>
+	new BehaviorSubject<UndefinedOr<Signal | string>>(undefined)
 
 const testEventEmitterable = (
 	x: any,
@@ -40,6 +41,10 @@ const testEventEmitterable = (
 	const test = 'on' in x
 	const test2 = 'removeListener' in x
 	return test && test2
+}
+
+export enum Signal {
+	SignInRequest = 'sign-in-request',
 }
 
 export class Connection extends UllrElement {
@@ -55,7 +60,7 @@ export class Connection extends UllrElement {
 	private _identifiers!: BehaviorSubject<UndefinedOr<{ email?: string }>>
 	private _signerSubscription!: Subscription
 	private _providerSubscription!: Subscription
-	private _signal!: BehaviorSubject<UndefinedOr<string>>
+	private _signal!: BehaviorSubject<UndefinedOr<Signal | string>>
 	private _chainChangedListener = (chainId: number | string) => {
 		if (this._chain) {
 			this._chain.next(Number(chainId))
