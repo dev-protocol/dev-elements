@@ -84,7 +84,7 @@
 	},
 	"homepage": "https://github.com/dev-protocol/dev-elements#readme",
 	"dependencies": {
-		"@aggre/ullr": "^3.1.5",
+		"@aggre/ullr": "^3.2.0",
 		"lit": "^2.8.0"
 	}
 }
