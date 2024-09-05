@@ -13,7 +13,13 @@ export default [
 		plugins: [resolve(), commonjs(), multiEntry()],
 	},
 	{
-		input: ['dist/**/*.js', '!**/element.*', '!**/*.test.js', '!**/test.js'],
+		input: [
+			'dist/**/*.js',
+			'!**/element.*',
+			'!**/constants/*',
+			'!**/*.test.js',
+			'!**/test.js',
+		],
 		output: [
 			{
 				file: 'dist/index.mjs',
@@ -30,10 +36,30 @@ export default [
 		input: [
 			'dist/**/*.d.ts',
 			'!**/element.*',
+			'!**/constants/*',
 			'!**/*.test.d.ts',
 			'!dist/src/lib/test.d.ts',
 		],
 		output: [{ file: 'dist/index.d.ts', format: 'es' }],
 		plugins: [resolve(), multiEntry(), dts()],
+	},
+	{
+		input: 'dist/src/constants/index.js',
+		output: [
+			{
+				file: 'dist/constants.mjs',
+				format: 'es',
+			},
+			{
+				file: 'dist/constants.js',
+				format: 'cjs',
+			},
+		],
+		plugins: [resolve()],
+	},
+	{
+		input: 'dist/src/constants/index.d.ts',
+		output: [{ file: 'dist/constants.d.ts', format: 'es' }],
+		plugins: [resolve(), dts()],
 	},
 ]

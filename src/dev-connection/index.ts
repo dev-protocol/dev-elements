@@ -22,6 +22,7 @@ import {
 } from 'ethers'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { UllrElement } from '@aggre/ullr'
+import { Signal } from '../constants'
 
 const newSigner = () => new BehaviorSubject<UndefinedOr<Signer>>(undefined)
 const newProvider = () =>
@@ -41,10 +42,6 @@ const testEventEmitterable = (
 	const test = 'on' in x
 	const test2 = 'removeListener' in x
 	return test && test2
-}
-
-export enum Signal {
-	SignInRequest = 'sign-in-request',
 }
 
 export class Connection extends UllrElement {
