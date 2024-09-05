@@ -12,7 +12,7 @@
 		"./images": {
 			"import": "./dist/constants.mjs",
 			"require": "./dist/constants.js",
-			"types": "./dist/constants.d.ts"
+			"types": "./constants.d.ts"
 		}
 	},
 	"types": "dist/index.d.ts",
@@ -33,7 +33,7 @@
 		"build:rollup": "rollup -c",
 		"build:rollup:elements": "rollup -c rollup.config.elements.js",
 		"watch": "npm run build:rollup:elements -w",
-		"prebuild": "rimraf dist bundled",
+		"prebuild": "rimraf dist bundled constants.d.ts",
 		"lint": "npm run lint:eslint && npm run lint:format",
 		"lint:eslint": "eslint . --ext .ts,.js --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",

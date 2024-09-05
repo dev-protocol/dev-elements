@@ -98,3 +98,4 @@ yarn.lock
 
 # build output
 bundled
+*.d.ts

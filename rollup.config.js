@@ -59,7 +59,7 @@ export default [
 	},
 	{
 		input: 'dist/src/constants/index.d.ts',
-		output: [{ file: 'dist/constants.d.ts', format: 'es' }],
+		output: [{ file: 'constants.d.ts', format: 'es' }],
 		plugins: [resolve(), dts()],
 	},
 ]
