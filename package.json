@@ -9,7 +9,7 @@
 			"require": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		},
-		"./images": {
+		"./constants": {
 			"import": "./dist/constants.mjs",
 			"require": "./dist/constants.js",
 			"types": "./constants.d.ts"
