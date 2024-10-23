@@ -51,7 +51,7 @@
 		"@rollup/plugin-node-resolve": "15.3.0",
 		"@rollup/plugin-typescript": "11.1.6",
 		"@rollup/pluginutils": "5.1.2",
-		"@types/dotenv": "8.2.0",
+		"@types/dotenv": "8.2.3",
 		"@types/glob": "8.1.0",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "20.16.14",
