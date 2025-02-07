@@ -1,8 +1,15 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild'
+import { puppeteerLauncher } from '@web/test-runner-puppeteer'
 
 export default {
 	files: ['src/**/*.test.ts'],
 	plugins: [esbuildPlugin({ ts: true })],
-	puppeteer: true,
+	browsers: [
+		puppeteerLauncher({
+			launchOptions: {
+				args: ['--disable-setuid-sandbox'],
+			},
+		}),
+	],
 	nodeResolve: true,
 }
