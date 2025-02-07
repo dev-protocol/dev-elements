@@ -28,7 +28,7 @@
 	"scripts": {
 		"dev": "run-p vite watch",
 		"vite": "vite",
-		"test": "wtr --puppeteer",
+		"test": "wtr",
 		"build": "npm run build:ts && npm run build:rollup && npm run build:rollup:elements",
 		"build:ts": "tsc",
 		"build:rollup": "rollup -c",
