@@ -7,7 +7,7 @@ export default {
 	browsers: [
 		puppeteerLauncher({
 			launchOptions: {
-				args: ['--disable-setuid-sandbox'],
+				args: ['-no-sandbox', '--disable-setuid-sandbox'],
 			},
 		}),
 	],
