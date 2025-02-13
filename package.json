@@ -60,7 +60,7 @@
 		"@typescript-eslint/parser": "5.62.0",
 		"@web/dev-server-esbuild": "1.0.3",
 		"@web/test-runner": "0.20.0",
-		"@web/test-runner-puppeteer": "0.17.0",
+		"@web/test-runner-puppeteer": "0.18.0",
 		"autoprefixer": "10.4.20",
 		"bundled-ethers": "github:dev-protocol/bundled-ethers",
 		"dotenv": "16.4.7",
