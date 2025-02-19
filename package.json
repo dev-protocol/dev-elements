@@ -71,7 +71,7 @@
 		"glob": "11.0.1",
 		"husky": "9.1.7",
 		"npm-run-all2": "7.0.2",
-		"postcss": "8.5.2",
+		"postcss": "8.5.3",
 		"prettier": "3.5.1",
 		"ramda": "0.30.1",
 		"rimraf": "6.0.1",
