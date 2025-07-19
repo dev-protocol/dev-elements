@@ -65,7 +65,7 @@
 		"bundled-ethers": "github:dev-protocol/bundled-ethers",
 		"dotenv": "17.2.0",
 		"eslint": "8.57.1",
-		"eslint-config-prettier": "10.1.5",
+		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-functional": "4.4.1",
 		"ethers": "6.15.0",
 		"glob": "11.0.3",
