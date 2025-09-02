@@ -63,7 +63,7 @@
 		"@web/test-runner-puppeteer": "0.18.0",
 		"autoprefixer": "10.4.21",
 		"bundled-ethers": "github:dev-protocol/bundled-ethers",
-		"dotenv": "17.2.1",
+		"dotenv": "17.2.2",
 		"eslint": "8.57.1",
 		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-functional": "4.4.1",
