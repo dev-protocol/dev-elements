@@ -64,7 +64,7 @@
 		"autoprefixer": "10.5.0",
 		"bundled-ethers": "github:dev-protocol/bundled-ethers",
 		"dotenv": "17.4.2",
-		"eslint": "8.57.1",
+		"eslint": "10.2.1",
 		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-functional": "4.4.1",
 		"ethers": "6.16.0",
